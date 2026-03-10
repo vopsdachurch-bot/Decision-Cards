@@ -148,10 +148,22 @@ document.getElementById("decisionForm").addEventListener("submit", function(e) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
   })
-  .then(res => alert("Gracias. Alguien de la iglesia se pondrá en contacto con usted pronto."))
-  .catch(err => alert("Error al enviar"));
+  .then(res => res.json()) // parse response as JSON
+  .then(res => {
+    if(res.result === "success") {
+      alert("Gracias. Alguien de la iglesia se pondrá en contacto con usted pronto.");
+    } else {
+      console.error("Error from Web App:", res.error);
+      alert("Error al enviar: " + res.error);
+    }
+  })
+  .catch(err => {
+    console.error("Network error:", err);
+    alert("Error al enviar (network)");
+  });
 });
 </script>
 
 </body>
+
 </html>
