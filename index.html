@@ -77,15 +77,43 @@ button:hover {
 </div>
 
 <script>
-fetch("AKfycbxyeCgFan1Tf0fEv9K2EDfr5Rph_y5aBMQ6rWHPPzlJWjzd42X7E5o8FTptgnxMFnWs3Q", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(data)
-})
-.then(res => alert("Gracias. Alguien de la iglesia se pondrá en contacto con usted pronto."))
-.catch(err => alert("Error al enviar"));
+document.getElementById("decisionForm").addEventListener("submit", function(e) {
+  e.preventDefault(); // prevent page reload
 
+  // collect form data
+  const data = {
+    name: document.getElementById("name").value,
+    phone: document.getElementById("phone").value,
+    village: document.getElementById("village").value,
+    commit_to_jesus: document.getElementById("commit").checked,
+    baptism_request: document.getElementById("baptism").checked,
+    prayer_request: document.getElementById("pray").checked,
+    home_visit_request: document.getElementById("visit").checked,
+    timestamp: new Date().toISOString()
+  };
+
+  // send to Google Sheet Web App
+  fetch("https://script.google.com/macros/s/AKfycbxyeCgFan1Tf0fEv9K2EDfr5Rph_y5aBMQ6rWHPPzlJWjzd42X7E5o8FTptgnxMFnWs3Q/exec", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json()) // parse response as JSON
+  .then(res => {
+    if(res.result === "success") {
+      alert("Gracias. Alguien de la iglesia se pondrá en contacto con usted pronto.");
+    } else {
+      console.error("Error from Web App:", res.error);
+      alert("Error al enviar: " + res.error);
+    }
+  })
+  .catch(err => {
+    console.error("Network error:", err);
+    alert("Error al enviar (network)");
+  });
+});
 </script>
 
 </body>
 </html>
+
