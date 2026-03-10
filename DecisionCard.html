@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Decision Card Landing Page</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  text-align: center;
+  background: white;
+  padding: 40px 30px;
+  border-radius: 20px;
+  border: 3px solid black;
+  width: 450px;
+  box-sizing: border-box;
+}
+
+.container img {
+  width: 60px;
+  margin-bottom: 15px;
+}
+
+h1 {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 26px;
+  margin: 10px 0;
+}
+
+h2 {
+  font-size: 16px;
+  color: goldenrod;
+  margin-bottom: 30px;
+}
+
+button {
+  width: 180px;
+  padding: 12px;
+  margin: 10px;
+  background: #2c5aa0;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #1f3f70;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <img src="sda.png" alt="SDA Logo">
+  <h1>Seventh-day Adventist Church</h1>
+  <h2>SOUTHWEST BELIZE MISSION OF SDA</h2>
+  <h3>Decision Card</h3>
+
+  <div>
+    <button onclick="window.location.href='Decision.html'">English</button>
+    <button onclick="window.location.href='Decisión.html'">Español</button>
+  </div>
+</div>
+
+<script>
+fetch("AKfycbxyeCgFan1Tf0fEv9K2EDfr5Rph_y5aBMQ6rWHPPzlJWjzd42X7E5o8FTptgnxMFnWs3Q", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(data)
+})
+.then(res => alert("Gracias. Alguien de la iglesia se pondrá en contacto con usted pronto."))
+.catch(err => alert("Error al enviar"));
+
+</script>
+
+</body>
+</html>

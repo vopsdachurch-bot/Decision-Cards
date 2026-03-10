@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tarjeta de Decisión</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  background:#f2f2f2;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.card{
+  background:white;
+  border:3px solid black;
+  border-radius:20px;
+  padding:25px 30px;
+  width:460px; /* slightly wider to fit Spanish text */
+  box-sizing: border-box;
+}
+
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:15px;
+}
+.SBMSDA {
+  color: goldenrod;
+  font-size: 14px;
+}
+
+.header img{
+  width:50px;
+  margin-right:12px; /* slightly more space for text */
+}
+
+.title{
+  font-family: 'Patrick Hand', cursive;
+  font-size:26px; /* slightly smaller to fit better */
+  letter-spacing:1px;
+  
+}
+
+label{
+  display:block;
+  margin-top:10px;
+  font-size:16px;
+}
+
+input[type="text"]{
+  width:100%;
+  padding:8px;
+  margin-top:5px;
+  font-size:15px;
+}
+
+.options{
+  margin-top:15px;
+  font-family: 'Patrick Hand', cursive;
+  letter-spacing:1px;
+  font-size:16px;
+}
+
+button{
+  margin-top:20px;
+  padding:10px;
+  width:100%;
+  background:#2c5aa0;
+  color:white;
+  border:none;
+  font-size:16px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#1f3f70;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="header">
+<img src="sda.png">
+<div>
+<strong>Iglesia Adventista del Séptimo Día</strong><br>
+<a class="SBMSDA">Misión Suroeste de Belice de la IASD</a>
+</div>
+</div>
+
+<div class="title">TARJETA DE DECISIÓN</div>
+
+<form id="decisionForm" style="font-family: 'Patrick Hand', cursive;">
+
+<label>Nombre</label>
+<input type="text" id="name" required>
+
+<label>Celular</label>
+<input type="text" id="phone">
+
+<label>Pueblo</label>
+<input type="text" id="village">
+
+<div class="options">
+
+<p><strong>Coloque un [✔] junto a todo lo que se aplique a usted:</strong></p>
+
+<label><input type="checkbox" id="commit"> Quiero comprometerme de verdad con Jesús.</label>
+
+<label><input type="checkbox" id="baptism"> Quiero bautizarme según lo enseña la Biblia.</label>
+
+<label><input type="checkbox" id="pray"> Por favor, oren por mí y mi familia.</label>
+
+<label><input type="checkbox" id="visit"> Por favor, visítenme en mi casa.</label>
+
+</div>
+
+<button type="submit">Enviar Tarjeta de Decisión</button>
+
+</form>
+
+</div>
+
+<script>
+document.getElementById("decisionForm").addEventListener("submit", function(e) {
+  e.preventDefault(); // prevent page reload
+
+  // collect form data
+  const data = {
+    name: document.getElementById("name").value,
+    phone: document.getElementById("phone").value,
+    village: document.getElementById("village").value,
+    commit_to_jesus: document.getElementById("commit").checked,
+    baptism_request: document.getElementById("baptism").checked,
+    prayer_request: document.getElementById("pray").checked,
+    home_visit_request: document.getElementById("visit").checked,
+    timestamp: new Date().toISOString()
+  };
+
+  // send to Google Sheet Web App
+  fetch("https://script.google.com/macros/s/AKfycbxyeCgFan1Tf0fEv9K2EDfr5Rph_y5aBMQ6rWHPPzlJWjzd42X7E5o8FTptgnxMFnWs3Q/exec", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  })
+  .then(res => alert("Gracias. Alguien de la iglesia se pondrá en contacto con usted pronto."))
+  .catch(err => alert("Error al enviar"));
+});
+</script>
+
+</body>
+</html>
